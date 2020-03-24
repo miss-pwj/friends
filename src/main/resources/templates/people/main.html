@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/staticRefer::static"/>
+    <title>Title</title>
+</head>
+<body>
+登录成功
+<div th:replace="common/header::header(${session.photourl})"></div>
+
+    <!--<pre th:text="${session.user.username}">用户：</pre>
+    <a th:href="@{/userController/toUserInfo}">用户信息</a>-->
+
+    <div>
+        <div >
+            <table>
+                <tr >
+                    <td th:each="pages , usersta : ${session.pageInfo.list}">
+
+                        <a th:href="@{${'/userController/queryOthers'}(username=${pages.username})}">
+                    <img th:src="${pages.img}" th:width="100px" th:height="100px"><br>
+                        [[${pages.username}]]
+                        </a>
+                        [[${userShow}]]
+                    </td>
+                </tr>
+            </table>
+
+
+
+        </div>
+    </div>
+<nav>
+    <ul class="pagination" >
+        <li>
+            <a th:if="${not pageInfo.isFirstPage}" th:href="@{${'/userController/toMain'}(pageNum=${(pageInfo.pageNum)-1},pageSize=${pageInfo.pageSize})}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+            <a th:if="${pageInfo.isFirstPage}" href="javascript:void(0);" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+
+        <li th:each="pageNo : ${#numbers.sequence(1, pageInfo.pages)}">
+            <a th:if="${pageInfo.pageNum eq pageNo}" href="javascript:void(0);">
+                <span th:text="${pageNo}"></span>
+            </a>
+
+            <a th:if="${not (pageInfo.pageNum eq pageNo)}" th:href="@{${'/userController/toMain'}(pageNum=${pageNo},pageSize=${pageInfo.pageSize})}">
+                <span th:text="${pageNo}"></span>
+            </a>
+        </li>
+
+        <li>
+            <a th:if="${not pageInfo.isLastPage}" th:href="@{${'/userController/toMain'}(pageNum=${(pageInfo.pageNum)+1},pageSize=${pageInfo.pageSize})}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+            <a th:if="${pageInfo.isLastPage}" href="javascript:void(0);" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+</body>
+</html>

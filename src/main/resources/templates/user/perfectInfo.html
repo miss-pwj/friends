@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/staticRefer::static"/>
+    <title>完善信息</title>
+</head>
+<body>
+<th:block th:replace="common/header::header(${session.photourl})"/>
+
+<div class="me">
+    <div class="account">
+        <h5>完善信息</h5>
+    </div>
+
+    <form th:action="@{userPerfectInfo}" method="post">
+        <table class="information" align="center">
+
+            <tr>
+                <td>
+                    <div>
+                        <p>学历</p>
+                       <!-- <th:block th:replace="::select('education')"/>-->
+                        <select name="education" >
+                            <option th:value="${userPerfectInfo.education==null?null:userPerfectInfo.education}" selected="selected">[[${userPerfectInfo.education==null?'请选择':userPerfectInfo.education}]]</option>
+                            <option th:value="${userDict.value}" th:each="userDict:${userDicts}" th:if="${userDict.type=='education'}">[[${userDict.value}]]</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>月薪</p>
+<!--                        <input type="text" th:name="salary" th:value="${userPerfectInfo.salary==0?0:userPerfectInfo.salary}">-->
+                        <input type="text" th:name="salary" th:value="${userPerfectInfo.salary==0?null:userPerfectInfo.salary}">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <p>身高</p>
+<!--                        <input type="text" name="height" th:value="${userPerfectInfo.height==0?0:userPerfectInfo.height}"><span>单位：cm</span>-->
+                        <input type="text" name="height" th:value="${userPerfectInfo.height==0?null:userPerfectInfo.height}"><span>单位：cm</span>
+                    </div>
+                </td>
+                <td width="50%">
+                    <div>
+                        <p>体重</p>
+<!--                        <input type="text" name="weight" th:value="${userPerfectInfo.weight==0?0:userPerfectInfo.weight}"><span>单位：kg</span>-->
+                        <input type="text" name="weight" th:value="${userPerfectInfo.weight==0?null:userPerfectInfo.weight}"><span>单位：kg</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <p>住宿情况</p>
+                       <!-- <th:block th:replace="::select('live_condition')"/>-->
+                        <select name="liveCondition" >
+                            <option th:value="${userPerfectInfo.liveCondition==null?null:userPerfectInfo.liveCondition}" selected="selected">[[${userPerfectInfo.liveCondition==null?'请选择':userPerfectInfo.liveCondition}]]</option>
+                            <option th:value="${userDict.value}" th:each="userDict:${userDicts}" th:if="${userDict.type=='live_condition'}">[[${userDict.value}]]</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>职业</p>
+                       <!-- <th:block th:replace="::select('job')"/>-->
+                        <select name="job" >
+                            <option th:value="${userPerfectInfo.job==null?null:userPerfectInfo.job}" selected="selected">[[${userPerfectInfo.job==null?'请选择':userPerfectInfo.job}]]</option>
+                            <option th:value="${userDict.value}" th:each="userDict:${userDicts}" th:if="${userDict.type=='job'}">[[${userDict.value}]]</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <p>生肖</p>
+                       <!-- <th:block th:replace="::select('zodiac')"/>-->
+                        <select name="zodiac" >
+                            <option th:value="${userPerfectInfo.zodiac==null?null:userPerfectInfo.zodiac}" selected="selected">[[${userPerfectInfo.zodiac==null?'请选择':userPerfectInfo.zodiac}]]</option>
+                            <option th:value="${userDict.value}" th:each="userDict:${userDicts}" th:if="${userDict.type=='zodiac'}">[[${userDict.value}]]</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>星座</p>
+                      <!--  <th:block th:replace="::select('constellation')"/>-->
+                        <select name="constellation" >
+                            <option th:value="${userPerfectInfo.constellation==null?null:userPerfectInfo.constellation}" selected="selected">[[${userPerfectInfo.constellation==null?'请选择':userPerfectInfo.constellation}]]</option>
+                            <option th:value="${userDict.value}" th:each="userDict:${userDicts}" th:if="${userDict.type=='constellation'}">[[${userDict.value}]]</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <p>信仰</p>
+                        <!--<th:block th:replace="::select('faith')"/>-->
+                        <select name="faith" >
+
+                            <option th:value="${userPerfectInfo.faith==null?null:userPerfectInfo.faith}" selected="selected">[[${userPerfectInfo.faith==null?'请选择':userPerfectInfo.faith}]]</option>
+                            <option th:value="${userDict.value}" th:each="userDict:${userDicts}" th:if="${userDict.type=='faith'}">[[${userDict.value}]]</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>休假情况</p>
+                        <!--<th:block th:replace="::select('job_time')"/>-->
+                        <select name="jobTime" >
+                            <option th:value="${userPerfectInfo.jobTime==null?null:userPerfectInfo.jobTime}" selected="selected">[[${userPerfectInfo.jobTime==null?'请选择':userPerfectInfo.jobTime}]]</option>
+                            <option th:value="${userDict.value}" th:each="userDict:${userDicts}" th:if="${userDict.type=='job_time'}">[[${userDict.value}]]</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <p>恋爱经历</p>
+<!--                        <th:block th:replace="::select('love_history')"/>-->
+                        <select name="loveHistory" >
+                            <option th:value="${userPerfectInfo.loveHistory==null?null:userPerfectInfo.loveHistory}" selected="selected">[[${userPerfectInfo.loveHistory==null?'请选择':userPerfectInfo.loveHistory}]]</option>
+                            <option th:value="${userDict.value}" th:each="userDict:${userDicts}" th:if="${userDict.type=='love_history'}">[[${userDict.value}]]</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>计划结婚时间</p>
+<!--                        <th:block th:replace="::select('marry_plan')"/>-->
+                        <select name="marryPlan">
+                            <option th:value="${userPerfectInfo.marryPlan==null?null:userPerfectInfo.marryPlan}" selected="selected">[[${userPerfectInfo.marryPlan==null?'请选择':userPerfectInfo.marryPlan}]]</option>
+                            <option th:value="${userDict.value}" th:each="userDict:${userDicts}" th:if="${userDict.type=='marry_plan'}">[[${userDict.value}]]</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <p>父母情况</p>
+<!--                        <th:block th:replace="::select('parent_status')"/>-->
+                        <select name="parentStatus" >
+                            <option th:value="${userPerfectInfo.parentStatus==null?null:userPerfectInfo.parentStatus}" selected="selected">[[${userPerfectInfo.parentStatus==null?'请选择':userPerfectInfo.parentStatus}]]</option>
+                            <option th:value="${userDict.value}" th:each="userDict:${userDicts}" th:if="${userDict.type=='parent_status'}">[[${userDict.value}]]</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>兄弟姐妹情况</p>
+<!--                        <th:block th:replace="::select('bro_and_sis')"/>-->
+                        <select name="broAndSis" >
+                            <option th:value="${userPerfectInfo.broAndSis==null?null:userPerfectInfo.broAndSis}" selected="selected">[[${userPerfectInfo.broAndSis==null?'请选择':userPerfectInfo.broAndSis}]]</option>
+                            <option th:value="${userDict.value}" th:each="userDict:${userDicts}" th:if="${userDict.type=='bro_and_sis'}">[[${userDict.value}]]</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <p>出生日期</p>
+                        <input type="date" name="birthday" th:value="${userPerfectInfo.birthday==null?'未填写':#dates.format(userPerfectInfo.birthday, 'yyyy/MM/dd')}">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>真实姓名</p>
+                        <input type="text" name="name" th:value="${userPerfectInfo.name==null?null:userPerfectInfo.name}">
+                    </div>
+                </td>
+
+
+            </tr>
+            <tr height="300px">
+                <td>
+                    <input type="submit" value="提交">
+                </td>
+
+            </tr>
+
+
+        </table>
+    </form>
+</div>
+
+
+</body>
+</html>

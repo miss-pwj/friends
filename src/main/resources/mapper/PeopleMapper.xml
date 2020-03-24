@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lcl.dao.PeopleDao">
+    <sql id="user_basic">
+        user_basic
+    </sql>
+    <sql id="user_img">
+        user_img
+    </sql>
+    <sql id="collrelation">
+        collrelation
+    </sql>
+<!--    查询用户需要展示在主界面的信息-->
+    <select id="queryUserShow" resultType="userShow">
+       select b.id,b.username,i.img from user_basic b left join user_img i on b.username = i.username and type ='photo'
+    </select>
+    <resultMap id="usershowmap" type="userShow">
+        <result column="id" property="id" javaType="long"/>
+        <result column="username" property="username" javaType="String"/>
+        <result column="img" property="img" javaType="String"/>
+    </resultMap>
+
+    <!--根据用户名查询生活照-->
+    <select id="queryPictureByName" resultType="userImg">
+        select * from <include refid="user_img"></include> where username = #{username} and type = #{type}
+    </select>
+    <select id="isPhotoExitbyName" resultType="boolean">
+         <![CDATA[
+        select count(*) from
+                user_img
+                where (username = #{username} and type = #{type})
+        ]]>
+    </select>
+    <!--根据姓名查询头像-->
+    <select id="queryPhotobyName" resultType="String">
+        select img from <include refid="user_img"></include> where username = #{username} and type = #{type}
+    </select>
+
+    <!--查询是否存在收藏关系-->
+    <select id="queryCollRelation" resultType="boolean">
+        <![CDATA[
+        select count(*) from
+                collrelation
+                where (collecter = #{collecter} and collected = #{collected})
+        ]]>
+    </select>
+
+
+
+    <!--添加收藏关系-->
+    <insert id="addCollRelation">
+        <selectKey keyProperty="Id" resultType="int" order="BEFORE">
+            select
+            collrelationSequence.nextval
+            from dual
+        </selectKey>
+        insert into <include refid="collrelation"></include> values (#{Id},#{collecter},#{collected})
+    </insert>
+    <delete id="deleteCollRelation">
+        delete from <include refid="collrelation"></include> where collecter = #{collecter} and collected = #{collected}
+    </delete>
+
+<!--    查询用户收藏数量-->
+    <select id="queryCollNum" resultType="int">
+        select collection from <include refid="user_basic"></include> where username=#{username}
+    </select>
+<!--    修改用户收藏数量-->
+    <update id="updateCollNum">
+        update <include refid="user_basic"></include> set collection =
+        <choose>
+            <when test="change">
+                #{collection}+1
+            </when>
+            <otherwise>
+                #{collection}-1
+            </otherwise>
+        </choose>
+        where username = #{username}
+        <if test="!change">
+          and  #{collection}>0
+        </if>
+    </update>
+</mapper>

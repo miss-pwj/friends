@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/staticRefer::static"/>
+    <base th:href="${#request.getContextPath()}+'/'">
+    <title>Title</title>
+</head>
+<body>
+
+
+<th:block th:fragment="header (photourl)">
+
+    <div class="num1">
+        <div class="logo">
+            <img th:src="@{/img/logo.jpg}" alt="logo">
+            <div class="photo">
+                <a  th:href="@{/userController/toUpload}"><img th:src="${photourl==null?'/img/me.jpg':photourl}"></a>
+
+                <ul class="out2">
+                    <li>
+                        <span th:text="'ID：'+${session.userId}" ></span>
+                        <ul class="in2">
+                            <li>
+                                <a th:href="@{/userController/toUserInfo}">基本信息</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/userController/tophotoWall}">照片墙</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/userController/toIntroduce}">自我介绍</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/userController/toMain}">回到主页</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="last">
+            <p>联系方式：15486585470@gmail.com</p>
+        </div>
+
+    </div>
+</th:block>
+
+
+
+
+
+
+
+
+<div class="last" th:fragment="footer">
+    <p>联系方式：15486585470@gmail.com</p>
+</div>
+</body>
+</html>

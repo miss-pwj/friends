@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="common/staticRefer::static"/>
+</head>
+<body>
+
+
+<div margin="0 auto">
+    <form th:action="@{userRegister}" method="post">
+
+        <label for="username" class="col-md-3 control-label">昵称</label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="昵称"><br>
+        <pre th:text="${nickname}" color="#red"></pre>
+
+
+        <label class="control-label">性别</label>
+        <label class="radio-inline">
+            <input type="radio" name="sex" value="男" checked="checked">男
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="sex" value="女">女
+        </label>
+        <br>
+
+        <label class="col-md-3 control-label">性取向</label>
+        <label class="radio-inline">
+            <input type="radio" name="sexual" value="男" checked="checked">男
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="sexual" value="女">女
+        </label>
+        <br>
+
+        <label class="col-md-3 control-label">婚姻状态</label>
+        <select name="marryStatus" id="marryStatus" class="form-control">
+            <option value="未婚">未婚</option>
+            <option value="离异">离异</option>
+            <option value="丧偶">丧偶</option>
+        </select>
+        <br>
+
+        <label for="password">密码</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="密码">
+        <br>
+
+        <label for="confpassword" class="col-md-3 control-label">确认密码</label>
+        <input type="password" class="form-control" id="confpassword" name="confpassword"
+               placeholder="确认密码">
+        <pre th:text="${double}"></pre>
+        <br>
+
+        <label for="email">邮箱</label>
+        <input type="text" id="email" name="email"
+               placeholder="我们将会向您的邮箱发送一封激活邮件">
+        <pre th:text="${email}"></pre>
+        <br>
+
+        <input type="submit" value="开启寻爱之旅" class="btn_1 submit">
+    </form>
+    <pre>已注册，点击登录<a href="/userController/toLogin">登录</a></pre>
+
+
+<!--<div class="wrapper">
+    <form th:action="@{/userRegister}" method="post">
+        <h1>蒹葭网</h1>
+
+        <hr class="sep"/>
+        <div class="group">
+            <input type="text" name="username" required="required"/><span class="highlight"></span><span
+                class="bar"></span>
+            <label>昵称</label>
+            <pre th:text="${nickname}" color="#red"></pre>
+        </div>
+        <div class="group">
+            <div class="chart">
+                <input type="radio" name="sex" value="男" checked="checked"><pre>男</pre>
+                <input type="radio" name="sex" value="女"><pre>女</pre>
+            </div>
+            <span class="highlight"></span><span
+                class="bar"></span>
+            <label>性别</label>
+        </div>
+        <div class="group">
+
+            <div class="chart">
+                <input type="radio" name="sexual" value="男" checked="checked"><pre>男</pre>
+                <input type="radio" name="sexual" value="女"><pre>女</pre>
+            </div>
+            <span class="highlight"></span><span
+                class="bar"></span>
+            <label>性取向</label>
+        </div>
+        <div class="group">
+            <div class="chart">
+                <select name="marryStatus">
+                    <option value="未婚">未婚</option>
+                    <option value="离异">离异</option>
+                    <option value="丧偶">丧偶</option>
+                </select>
+            </div>
+            <span class="highlight"></span><span
+                class="bar"></span>
+            <label>婚姻状态</label>
+        </div>
+        <div class="group">
+            <input type="password" name="password" required="required"/><span class="highlight"></span><span
+                class="bar"></span>
+            <label>密码</label>
+        </div>
+        <div class="group">
+            <input type="password" name="confpassword" required="required"/><span class="highlight"></span><span
+                class="bar"></span>
+            <label>确认密码</label>
+            <pre th:text="${double}"></pre>
+        </div>
+        <div class="group">
+            <input type="text" name="email" required="required"/><span class="highlight"></span><span
+                class="bar"></span>
+            <label>邮箱</label>
+            <pre th:text="${email}"></pre>
+        </div>
+
+        <div class="btn-box">
+            <button type="submit" class="btn btn-submit">submit</button>
+            <button type="button" class="btn btn-cancel">cancel</button>
+            &lt;!&ndash;                <h5>*these buttons do nothing :)</h5>&ndash;&gt;
+        </div>
+        <h5>还没有账号？快去注册吧</h5>
+        <div class="btn-box"><a th:href="@{toRegister}" target="_blank" class="btn btn-link">注册</a>
+        </div>
+    </form>-->
+
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:fragment="style" rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<body>
+<div th:marginheight="0" th:marginwidth="auto">
+
+    <div class="wrapper">
+        <form th:action="@{userLogin}">
+            <h1>蒹葭网</h1>
+
+            <hr class="sep" />
+            <div class="group">
+                <input type="text" name="account" required="required" /><span class="highlight"></span><span class="bar"></span>
+                <label>账号</label>
+                <pre th:text="${result}"></pre>
+            </div>
+            <div class="group">
+                <input type="password" name="password" required="required" /><span class="highlight"></span><span class="bar"></span>
+                <label>密码</label>
+            </div>
+
+
+            <div class="btn-box">
+                <button type="submit" class="btn btn-submit">submit</button>
+                <button type="button" class="btn btn-cancel">cancel</button>
+<!--                <h5>*these buttons do nothing :)</h5>-->
+            </div>
+            <h5>还没有账号？快去注册吧</h5>
+            <div class="btn-box"><a th:href="@{toRegister}" target="_blank" class="btn btn-link">注册</a>
+            </div>
+        </form>
+
+    </div>
+   <!-- <form action="userLogin" method="get">
+        <label>账号</label>
+        <input type="text" name="account" placeholder="用户名/邮箱/手机号">
+        <pre th:text="${result}"></pre>
+        <br>
+        <label>密码</label>
+        <input type="password" name="password" placeholder="密码">
+
+        <input type="submit" value="登录"/>
+    </form>
+    <a href="toRegister"><pre th:text="没有账号点击注册" ></pre></a>
+    -->
+</div>
+</body>
+</html>

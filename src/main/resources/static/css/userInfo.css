@@ -1,0 +1,173 @@
+
+
+
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #F8F9FA;
+    background-image: url(../img/background.png);
+}
+.num1{
+    margin-bottom: 100px;
+}
+
+.num1 .logo{
+    width: 100%;
+    z-index: 999;
+    margin: 0 auto;
+    background-color: #F1F1F1;
+    position: fixed;
+    top:0;
+    border-bottom: 1px solid #C3BEC4;
+
+}
+
+.num1 .logo>img{
+    margin-left: 20%;
+    margin-top: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+
+}
+
+.num1 .photo{
+    width:50px;
+    height: 50px;
+    background: url(../img/me.jpg) no-repeat 6px #F7FCF6;
+    background-size: cover;
+    display: block;
+    border-radius: 50%;
+    position: absolute;
+    top:10px;
+    right:20%;
+}
+.num1 .photo img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    z-index: 999;
+}
+.num1 .photo .out2{
+    color: #F5B0CD;
+    margin-left: 15px;
+    margin-top: -50px;
+    width: 200px;
+    list-style: none;
+}
+.num1 .photo .out2 span{
+    color: #F5B0CD;
+    margin-left: 40px;
+    margin-top: -50px;
+    width: 200px;
+    list-style: none;
+    z-index: 0;
+}
+
+.num1 .photo .out2 .in2{
+    list-style: none;
+    margin: 0;
+    padding:0;
+
+}
+.num1 .photo .out2 .in2{
+    display: none;
+}
+.num1 .photo .out2 .in2 a{
+    text-decoration: none;
+    line-height: 40px;
+    color: #341F26;
+}
+.num1 .photo .out2 li:hover .in2{
+    display: block;
+}
+.num1 .photo .out2 li .in2 a:hover{
+    color: red;
+}
+
+.me{
+    width: 100%;
+    margin-top: 80px;
+    /* background-image: url(../img/24.jpg);
+    background-repeat: no-repeat;
+    background-position: center top; */
+}
+.me .account{
+    height: 30px;
+    margin: 0 auto;
+    width: 900px;
+}
+.me h5{
+    font-size: 25px;
+    font-weight: lighter;
+    color: rgb(117, 84, 76);
+    text-shadow: 2px 2px 2px rgb(223, 207, 161);
+}
+
+.me p{
+    margin-left: 20px;
+    padding-top: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    color: rgb(167, 131, 122);
+    text-shadow: 2px 2px 2px rgb(223, 207, 161);
+}
+.me .information,.imgage,.love,.contact{
+    margin: 0 auto;
+    width: 900px;
+    height: 150px;
+    background-image: url(../img/fontback.jpg);
+    background-position: center center;
+}
+.me div table{
+    margin: 0 auto;
+    border-spacing: 120px 0;
+}
+.me div table tr td{
+    font-weight: lighter;
+    color: #333333;
+    font-size: 15px;
+    font-weight: lighter;
+    color: rgb(150, 114, 106);
+    text-shadow: 2px 2px 2px rgb(223, 207, 161);
+}
+.me .imgage img{
+    width: 100px;
+    height: 100px;
+    position: relative;
+    left: 40%;
+    top:-20px;
+    border-radius: 50%;
+    border: rgb(216, 205, 205) solid 2px;
+}
+.me .imgage img:hover{
+    animation:rotateImg1 0.7s;
+}
+
+@keyframes rotateImg1{
+    0% {transform : rotate(0deg);}
+    100% {transform : rotate(360deg);}
+}
+.me .love img{
+    width: 160px;
+    height: 100px;
+    position: relative;
+    left: 40%;
+    top:-20px;
+}
+.me .contact{
+    margin-bottom: 70px;
+}
+
+.last{
+    position: fixed;
+    margin-top:20px;
+    width: 100%;
+    height: 50px;
+    background-color: #333333;
+    bottom: 0;
+}
+.last p{
+    color: #B0AFAF;
+    text-align: center;
+}

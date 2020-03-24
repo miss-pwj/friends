@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lcl.dao.UserDao">
+
+    <!--    表名-->
+    <sql id="user_basic">
+        user_basic
+    </sql>
+    <sql id="user_img">
+        user_img
+    </sql>
+    <sql id="user_dict">
+        user_dict
+    </sql>
+    <sql id="perfectInfo">
+        perfectInfo
+    </sql>
+
+    <sql id="nextval">
+        user_id.nextval
+    </sql>
+    <sql id="user_introduce">
+        user_introduce
+    </sql>
+
+    <insert id="insertUserBasic">
+        /*在oracle等没有自增主键的数据库中，在插入前查询逐渐并赋值到javaBean的id上*/
+        <selectKey keyProperty="Id" resultType="long" order="BEFORE">
+            select
+            <include refid="nextval"/>
+            from dual
+        </selectKey>
+        /*使用序列*/
+        insert into
+        <include refid="user_basic"></include>
+        (id,username,sex,sexual,marryStatus,password,email)
+        values (#{Id} ,#{user.username},#{user.sex},#{user.sexual},#{user.marryStatus},
+        #{user.password},#{user.email})
+    </insert>
+    <select id="selectByName" resultType="User">
+        select * from <include refid="user_basic"></include> where username = #{username,jdbcType=VARCHAR}
+
+    </select>
+
+    <select id="selectByEmail" resultType="user">
+        select * from <include refid="user_basic"></include> where email= #{email}
+    </select>
+
+    <select id="selectByAccount" resultType="user">
+        select * from
+        <include refid="user_basic"></include>
+        <where>
+
+            <if test="user.username != null">
+                username = #{user.username}
+            </if>
+            <if test="user.id != null">
+                and id = #{user.id}
+            </if>
+            <if test="user.email != null">
+                AND email = #{user.email}
+            </if>
+            <if test="user.phone !=null">
+                AND phone = #{user.phone}
+            </if>
+        </where>
+        and password=#{user.password}
+    </select>
+    <!--根据账号查询用户名-->
+    <select id="selectUnameByAccount" resultType="String">
+        select username from
+        <include refid="user_basic"></include>
+        <where>
+
+            <choose>
+                <when test="user.id != null">
+                    username = #{user.username}
+                </when>
+                <when test="user.email != null">
+                    AND email = #{user.email}
+                </when>
+                 <when test="user.phone !=null">
+                     AND phone = #{user.phone}
+                </when>
+               <otherwise>
+                     1=0
+               </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <!--    登录是否成功 返回值为
+                        1 -> true
+                        大于1 或0 ->false
+    -->
+    <select id="isLoginOK" resultType="boolean">
+        <![CDATA[
+        select count(*) from
+                user_basic
+                where (username = #{account} or email = #{account} or phone = #{account})
+                and password =#{password}
+        ]]>
+    </select>
+    <!--    通过账号返回用户名-->
+    <select id="backUsernamebyAccount" resultType="String">
+        select username from
+        <include refid="user_basic"></include>
+        where username = #{account} or email = #{account} or phone = #{account} or to_char(id) = #{account}
+    </select>
+    <select id="backIdbyAccount" resultType="long">
+        select id from
+        <include refid="user_basic"></include>
+        where username = #{account} or email = #{account} or phone = #{account} or to_char(id) = #{account}
+    </select>
+
+    <!--用户更新电话-->
+    <update id="updatePhoneNum">
+        update <include refid="user_basic"></include> set phone =#{phone,jdbcType=VARCHAR} where
+        username=#{username,jdbcType=VARCHAR}
+    </update>
+
+    <!--    修改头像-->
+    <insert id="insertPhoto">
+        insert into <include refid="user_img"></include>(username,type,img)
+        values(#{userImg.username},#{userImg.type},#{userImg.img})
+    </insert>
+    <!--    用户更新头像-->
+    <update id="updatePhoto">
+        update <include refid="user_img"></include> set img=#{userImg.img} where username=#{userImg.username} and
+        type=#{userImg.type}
+    </update>
+    <!--   获取用户头像信息 -->
+    <select id="isPhotoExit" resultType="userImg">
+        select * from <include refid="user_img"></include> where username = #{userImg.username} and type =#{userImg.type,jdbcType=VARCHAR}
+    </select>
+    <!--用户修改基本信息-->
+    <update id="changeUserbasicByname">
+        update <include refid="user_basic"></include> set sex=#{user.sex},sexual=#{user.sexual},
+        marrystatus=#{user.marryStatus},email=#{user.email},phone=#{user.phone} where username=#{user.username}
+    </update>
+    <!--查询用户信息选项表-->
+    <select id="queryUserDict" resultType="UserDict">
+        select * from
+        <include refid="user_dict"></include>
+    </select>
+    <!--完善用户信息-->
+    <insert id="userInsertPerfectInfo">
+        insert into <include refid="perfectInfo"></include> values(#{userPerfectInfo.username},
+        #{userPerfectInfo.education},#{userPerfectInfo.salary},#{userPerfectInfo.height},
+        #{userPerfectInfo.weight},#{userPerfectInfo.liveCondition},#{userPerfectInfo.job},
+        #{userPerfectInfo.zodiac},#{userPerfectInfo.constellation},#{userPerfectInfo.faith},
+        #{userPerfectInfo.jobTime},#{userPerfectInfo.marryPlan},#{userPerfectInfo.parentStatus},
+        #{userPerfectInfo.broAndSis},#{userPerfectInfo.loveHistory},#{userPerfectInfo.birthday,jdbcType=DATE},
+        #{userPerfectInfo.name})
+    </insert>
+    <!--修改用户信息-->
+    <update id="userUpdatePerfectInfo">
+        update <include refid="perfectInfo"></include> set EDUCATION=#{userPerfectInfo.education},
+        SALARY=#{userPerfectInfo.salary},HEIGHT=#{userPerfectInfo.height},WEIGHT=#{userPerfectInfo.weight},
+        LIVE_CONDITION=#{userPerfectInfo.liveCondition,jdbcType=VARCHAR},JOB=#{userPerfectInfo.job,jdbcType=VARCHAR},ZODIAC=#{userPerfectInfo.zodiac,jdbcType=VARCHAR},
+        CONSTELLATION=#{userPerfectInfo.constellation,jdbcType=VARCHAR},FAITH=#{userPerfectInfo.faith,jdbcType=VARCHAR},JOB_TIME=#{userPerfectInfo.jobTime,jdbcType=VARCHAR},
+        MARRY_PLAN=#{userPerfectInfo.marryPlan,jdbcType=VARCHAR},PARENT_STATUS=#{userPerfectInfo.parentStatus,jdbcType=VARCHAR},BRO_AND_SIS=#{userPerfectInfo.broAndSis,jdbcType=VARCHAR},
+        LOVE_HISTORY=#{userPerfectInfo.loveHistory,jdbcType=VARCHAR},BIRTHDAY=#{userPerfectInfo.birthday,jdbcType=DATE},NAME=#{userPerfectInfo.name}
+        where username = #{userPerfectInfo.username,jdbcType=VARCHAR}
+
+    </update>
+    <!--通过用户名查询信息-->
+    <select id="userSelectPerfectInfo" resultType="UserPerfectInfo">
+        select * from <include refid="perfectInfo"></include> where username=#{username}
+    </select>
+
+    <!--查询是否已经添加过自我介绍-->
+    <select id="isExitIntroduce" resultType="boolean">
+        <![CDATA[
+        select count(*) from
+                user_introduce
+                where (username = #{username})
+        ]]>
+    </select>
+    <!--增加自我介绍-->
+    <insert id="addUserIntroduce" >
+        insert into <include refid="user_introduce"></include> values(#{userIntroduce.username},#{userIntroduce.introduce,jdbcType=CLOB})
+    </insert>
+    <!--修改自我介绍-->
+    <update id="changeUserIntroduce">
+        update <include refid="user_introduce"></include> set introduce = #{userIntroduce.introduce,jdbcType=CLOB} where username = #{userIntroduce.username}
+    </update>
+    <!--查询自我介绍的信息-->
+    <select id="querryIntroByUsername" resultType="userIntroduce">
+        select * from <include refid="user_introduce"></include> where username = #{username}
+    </select>
+    <!--用户增加生活照-->
+    <insert id="addLifePicture">
+        /*在oracle等没有自增主键的数据库中，在插入前查询逐渐并赋值到javaBean的id上*/
+        <selectKey keyProperty="Id" resultType="int" order="BEFORE">
+            select
+            userimgSeq.nextval
+            from dual
+        </selectKey>
+        insert into <include refid="user_img"></include>(id,username,type,img) values (#{Id},#{userImg.username},#{userImg.type},#{userImg.img})
+    </insert>
+
+    <!--是否添加生活照-->
+    <select id="isExitLifePicture" resultType="boolean">
+        <![CDATA[
+        select count(img) from
+                user_img
+                where (username = #{userImg.username} and TYPE = #{userImg.type,jdbcType=VARCHAR})
+        ]]>
+    </select>
+
+    <!--查询生活照-->
+    <select id="queryLifePicture" resultType="UserImg">
+        select * from <include refid="user_img"></include> where username = #{userImg.username} and type = #{userImg.type}
+    </select>
+</mapper>

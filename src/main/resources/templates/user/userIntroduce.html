@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/staticRefer::static"/>
+    <title>Title</title>
+</head>
+<body>
+登录成功
+<div th:replace="common/header::header(${session.photourl})"></div>
+
+<form th:action="@{userIntroduceInfo}" method="post">
+    <label hidden="hidden">
+        <span>Your Name :</span>
+        <input id="name" type="text" name="username" th:value="${session.user.username}"  />
+    </label>
+        <label>
+            <span>自我介绍及心仪目标 :</span>
+            <textarea  name="introduce" placeholder="介绍介绍自己" th:value="${userIntroduce==null?null:userIntroduce.introduce}" th:text="${userIntroduce==null?'':userIntroduce.introduce}"></textarea>
+        </label>
+    <label>
+        <input type="submit" class="button" value="提交" />
+    </label>
+</form>
+
+</body>
+</html>

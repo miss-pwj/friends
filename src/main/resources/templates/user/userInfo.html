@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/staticRefer::static"/>
+    <title>用户信息</title>
+</head>
+<body>
+<div class="num1">
+
+
+    <div th:replace="common/header::header(${photourl})"></div>
+
+    <div class="me">
+        <div class="account">
+            <h5>账号信息</h5>
+        </div>
+        <form th:action="@{changeUserbasicByname}">
+        <table class="information" align="center">
+            <tr>
+                <td width="50%">
+                    <div>
+                        <p>用户名</p>
+                        <input th:value="${muser.username}"  name="username" readonly="readonly">
+                    </div>
+                </td>
+                <td width="50%">
+                    <div>
+                        <p>邮箱</p>
+                        <input th:value="${muser.email}" name="email">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <p>手机号</p>
+                        <span th:text="${result}"></span>
+
+                      <!--  <form th:action="@{/addPhoneNum}">-->
+                            <input type="text" name="phone" th:value="${muser.phone}"/>
+                        <!--       <input type="submit" value="绑定手机号">
+                         </form>-->
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>性别</p>
+                        <input th:value="${muser.sex}" name="sex">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <p>性取向</p>
+                        <input th:value="${muser.sexual}" name="sexual">
+                    </div>
+
+                </td>
+                <td>
+                    <div>
+                        <p>婚姻状况</p>
+                        <input th:value="${muser.marryStatus}" name="marryStatus">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td> <input type="submit" value="提交"></td>
+                <td>
+                    <span th:text="${change}" th:bgcolor="red"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                    <span ><a th:href="@{toPerfectInfo}">点击完善详细信息，匹配灵魂伴侣</a></span>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                    <span ><a th:href="@{toShowMoreInfo}">我的详细信息</a></span>
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+
+        </form>
+
+    </div>
+
+</div>
+<th:block th:replace="common/header::footer"/>
+
+
+</body>
+</html>

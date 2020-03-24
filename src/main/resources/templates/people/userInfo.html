@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="common/staticRefer::static"/>
+
+    <script type="text/javascript" th:src="@{js/jquery.js}"></script>
+    <script type="text/javascript">
+        function update(){
+            alert("jinru");
+            var collecter = $("#collecter").val();
+            var collected = $("#collected").val();
+            alert("jinru2");
+            $.ajax({
+                url:"changeCollection",
+                data:{"collecter":collecter, "collected":collected},
+                type:"POST",
+                dataType:"JSON",
+                success:function(httpdata){
+                    $("#collNumber").append("<li>"+httpdata+"</li>");
+                    // $("#x").append("<li>"+httpdata.obj.age+"</li>");
+                    // $("#x").append("<li>"+httpdata.obj.zl+"</li>")
+                }
+            });
+        }
+
+       /* function update(){
+            alert("ww");
+            var $collecter=$("#collecter").val();
+            var $collected=$("#collected").val();
+            alert($collecter+$collecter);
+            alert("fdsaf");
+            $.getJSON(
+                "changeCollection",		//请求路径
+                {"collecter":$collecter,"collected":$collected},	//传递参数
+                function(result){
+                    //成功返回结果
+                    alert(result);
+                    /!* if(result.exist=="null"){
+                         alert("请输入密码");
+                     }else{
+                         alert("两次输入密码不一致,请重新输入");
+                     }*!/
+                }
+            );
+
+        }*/
+    </script>
+</head>
+<body>
+<div th:replace="common/header::header(${session.photourl})"></div>
+
+
+<div class="me">
+    <div class="account">
+        <h5>基本信息</h5>
+    </div>
+    <table class="information">
+        <tr>
+            <td>
+                <img th:src="${imgurl}" th:width="200px" th:height="200px">
+            </td>
+            <td>
+                 <span>
+            <ul>
+                <li th:float="left">
+                    昵称：[[${ouser.username}]]
+                </li>
+                <li>
+                    性别：[[${ouser.sex}]]
+                </li>
+                <li>
+                    婚姻状态：[[${ouser.marryStatus}]]
+                </li>
+                <li id="collNumber">
+                    收藏数：[[${ouser.collection}]]
+                </li>
+            </ul>
+
+                     <span>
+<!--                         <a th:href="@{${'changeCollection'}(collecter=${},collected=${})}" th:text="${coll==null?'收藏':coll}">收藏</a>-->
+
+                     </span>
+                     <input th:value="${session.username}" id="collecter" hidden="hidden">
+                     <input th:value="${ouser.username}" id="collected" hidden="hidden">
+                    <input id="dopost" type="button" th:value="收藏" onclick="update()">
+                </span>
+            </td>
+        </tr>
+    </table>
+
+
+    <div class="account">
+        <h5>自我介绍</h5>
+    </div>
+    <table class="information">
+
+        <tr align="center">
+            <td>
+                <div>
+
+                    <span th:text="${userIntroduce==null?'':userIntroduce.introduce}"></span>
+                </div>
+            </td>
+
+
+        </tr>
+    </table>
+</div>
+
+<div id="perspective">
+<!--    <span>生活状态：</span>-->
+    <div id="wrap" th:if="${userImgs != null}">
+        <span th:each="userImg : ${userImgs}">
+             <img th:if="${userImg.type =='life'}" th:src="${path+userImg.img}" th:width="100px" th:height="100px"/>
+        </span>
+    </div>
+    <div>
+    <span th:if="${userImgs==null}">
+        <span th:if="${ouser.sex=='男'}" th:text="小哥哥还没有上传生活照"></span>
+        <span th:if="${ouser.sex=='女'}" th:text="小姐姐还没有上传生活照"></span>
+    </span>
+    </div>
+</div>
+
+
+<div class="me">
+
+
+    <div class="account">
+        <h5>详细信息</h5>
+    </div>
+
+<!--    <table class="information" align="center" th:if="${userPerfectInfo!=null}">-->
+    <table class="information" align="center" >
+
+
+        <tr>
+            <td>
+                <div>
+                    <p>学历</p>
+                    <span th:text="${userPerfectInfo.education==null?'仍是机密':userPerfectInfo.education}"></span>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <p>月薪</p>
+                    <span th:text="${userPerfectInfo.salary==0?'仍是机密':userPerfectInfo.salary+'元'}"></span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    <p>身高</p>
+                    <span th:text="${userPerfectInfo.height==0?'仍是机密':userPerfectInfo.height+'cm'}"></span>
+                </div>
+            </td>
+            <td width="50%">
+                <div>
+                    <p>体重</p>
+                    <span th:text="${userPerfectInfo.weight==0?'仍是机密':userPerfectInfo.weight+'kg'}"></span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    <p>住宿情况</p>
+                    <span th:text="${userPerfectInfo.liveCondition==null?'仍是机密':userPerfectInfo.liveCondition}"></span>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <p>职业</p>
+                    <span th:text="${userPerfectInfo.job==null?'仍是机密':userPerfectInfo.job}"></span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    <p>生肖</p>
+                    <span th:text="${userPerfectInfo.zodiac==null?'仍是机密':userPerfectInfo.zodiac}"></span>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <p>星座</p>
+                    <span th:text="${userPerfectInfo.constellation==null?'仍是机密':userPerfectInfo.constellation}"></span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    <p>信仰</p>
+                    <span th:text="${userPerfectInfo.faith==null?'仍是机密':userPerfectInfo.faith}"></span>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <p>休假情况</p>
+                    <span th:text="${userPerfectInfo.jobTime==null?'仍是机密':userPerfectInfo.jobTime}"></span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    <p>恋爱经历</p>
+                    <span th:text="${userPerfectInfo.loveHistory==null?'仍是机密':userPerfectInfo.loveHistory}"></span>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <p>计划结婚时间</p>
+                    <span th:text="${userPerfectInfo.marryPlan==null?'仍是机密':userPerfectInfo.marryPlan}"></span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    <p>父母情况</p>
+                    <span th:text="${userPerfectInfo.parentStatus==null?'仍是机密':userPerfectInfo.parentStatus}"></span>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <p>兄弟姐妹情况</p>
+                    <span th:text="${userPerfectInfo.broAndSis==null?'仍是机密':userPerfectInfo.broAndSis}"></span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    <p>出生日期</p>
+                    <span th:text="${userPerfectInfo.birthday==null?'仍是机密':#dates.format(userPerfectInfo.birthday, 'yyyy-MM-dd')}"></span>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <p>真实姓名</p>
+                    <span th:text="${userPerfectInfo.name==null?'仍是机密':userPerfectInfo.name}"></span>
+                </div>
+            </td>
+
+        </tr>
+        <tr th:height="200px">
+
+        </tr>
+    </table>
+
+</div>
+
+<script th:src="@{/js/role.js}"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/staticRefer::static"/>
+    <title>完善信息</title>
+</head>
+<body>
+<th:block th:replace="common/header::header(${session.photourl})"/>
+
+<div class="me">
+    <div class="account">
+        <h5>详细信息</h5>
+    </div>
+
+        <table class="information" align="center" >
+
+            <tr>
+                <td>
+                    <div>
+                        <p>学历</p>
+                        <span th:text="${userPerfectInfo.education==null?'未填写':userPerfectInfo.education}"></span>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>月薪</p>
+                        <span th:text="${userPerfectInfo.salary==0?'未填写':userPerfectInfo.salary+'元'}"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <p>身高</p>
+                        <span th:text="${userPerfectInfo.height==0?'未填写':userPerfectInfo.height+'cm'}"></span>
+                    </div>
+                </td>
+                <td width="50%">
+                    <div>
+                        <p>体重</p>
+                        <span th:text="${userPerfectInfo.weight==0?'未填写':userPerfectInfo.weight+'kg'}"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <p>住宿情况</p>
+                        <span th:text="${userPerfectInfo.liveCondition==null?'未填写':userPerfectInfo.liveCondition}"></span>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>职业</p>
+                        <span th:text="${userPerfectInfo.job==null?'未填写':userPerfectInfo.job}"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <p>生肖</p>
+                        <span th:text="${userPerfectInfo.zodiac==null?'未填写':userPerfectInfo.zodiac}"></span>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>星座</p>
+                        <span th:text="${userPerfectInfo.constellation==null?'未填写':userPerfectInfo.constellation}"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <p>信仰</p>
+                        <span th:text="${userPerfectInfo.faith==null?'未填写':userPerfectInfo.faith}"></span>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>休假情况</p>
+                        <span th:text="${userPerfectInfo.jobTime==null?'未填写':userPerfectInfo.jobTime}"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <p>恋爱经历</p>
+                        <span th:text="${userPerfectInfo.loveHistory==null?'未填写':userPerfectInfo.loveHistory}"></span>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>计划结婚时间</p>
+                        <span th:text="${userPerfectInfo.marryPlan==null?'未填写':userPerfectInfo.marryPlan}"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <p>父母情况</p>
+                        <span th:text="${userPerfectInfo.parentStatus==null?'未填写':userPerfectInfo.parentStatus}"></span>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>兄弟姐妹情况</p>
+                        <span th:text="${userPerfectInfo.broAndSis==null?'未填写':userPerfectInfo.broAndSis}"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <p>出生日期</p>
+                        <span th:text="${userPerfectInfo.birthday==null?'未填写':#dates.format(userPerfectInfo.birthday, 'yyyy-MM-dd')}"></span>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>真实姓名</p>
+                        <span th:text="${userPerfectInfo.name==null?'未填写':userPerfectInfo.name}"></span>
+                    </div>
+                </td>
+
+            </tr>
+            <tr height="300px">
+
+                <a th:text="前去完善" th:href="@{toPerfectInfo}"></a>
+            </tr>
+
+
+        </table>
+</div>
+
+</body>
+</html>
